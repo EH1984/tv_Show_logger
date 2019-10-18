@@ -1,0 +1,15 @@
+{
+	"name": "tv_show_logger",
+	"version": "1.0.0",
+	"description": "Log and Rate your favourite tv-shows",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Eugene Hamill",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}
