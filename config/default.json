@@ -1,0 +1,3 @@
+{
+	"mongoURI": "mongodb+srv://tvShowUser:tvShowUser@tvshowlogger-fkjxy.mongodb.net/test?retryWrites=true&w=majority"
+}
