@@ -5,17 +5,21 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"server": "nodemon server.js"
+		"server": "nodemon server.js",
+		"client": "npm start --prefix frontend",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"keywords": [],
 	"author": "Eugene Hamill",
 	"license": "ISC",
 	"dependencies": {
+		"bootstrap": "^4.3.1",
 		"concurrently": "^5.0.0",
 		"config": "^3.2.3",
 		"express": "^4.17.1",
 		"express-validator": "^6.2.0",
 		"mongoose": "^5.7.5",
-		"nodemon": "^1.19.4"
+		"nodemon": "^1.19.4",
+		"react-router-dom": "^5.1.2"
 	}
 }
