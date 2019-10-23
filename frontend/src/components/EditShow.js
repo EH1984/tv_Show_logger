@@ -7,23 +7,45 @@ export class EditShow extends Component {
 		rating: ''
 	};
 
+	nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 	componentDidMount() {
-		this.setState({ title: this.props.shows[0].title });
+		if (this.props.shows.length > 0) {
+			this.setState({ title: this.props.shows[0].title, rating: 1 });
+		}
 	}
 
 	setShow = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	setOpinon = e => {};
+	setOpinon = e => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	setRating = e => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	onSubmit = e => {
+		e.preventDefault();
+		const showEdit = {
+			title: this.state.title,
+			opinion: this.state.opinion ? this.state.opinion : 'No review written!',
+			rating: this.state.rating,
+			rewatch: false
+		};
+		this.props.editShow(showEdit);
+		this.setState({ title: this.props.shows[0].title, opinion: '', rating: 1 });
+		window.location = '/';
+	};
 
 	render() {
-		console.log(this.props.shows);
 		return (
 			<div>
 				<h3>Edit your shows:</h3>
 				<br />
-				<form>
+				<form onSubmit={this.onSubmit}>
 					<div className='form-group'>
 						<label>Select Show:</label>
 						<select
@@ -44,12 +66,38 @@ export class EditShow extends Component {
 						<br />
 						<div className='form-group'>
 							<label>Opinion:</label>
-							<input
+							<textarea
 								type='text'
 								className='form-control'
+								name='opinion'
 								value={this.state.opinion}
 								onChange={this.setOpinon}
 							/>
+						</div>
+						<br />
+						<div className='form-group'>
+							<label>Rating:</label>
+							<select
+								name='rating'
+								required
+								className='rating'
+								value={this.props.rating}
+								onChange={this.setRating}
+							>
+								{this.nums.map(num => {
+									return (
+										<option key={num} value={num}>
+											{num}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+						<br />
+						<div className='form-group'>
+							<button type='submit' value='edit' className='btn btn-primary'>
+								Edit Show
+							</button>
 						</div>
 					</div>
 				</form>

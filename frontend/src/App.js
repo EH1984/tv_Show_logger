@@ -49,6 +49,20 @@ export class App extends Component {
 		this.setState({ shows: this.state.shows.filter(show => show.id !== id) });
 	};
 
+	editShow = showEdit => {
+		this.setState({
+			shows: this.state.shows.map(show => {
+				if (show.title === showEdit.title) {
+					show.opinion = showEdit.opinion;
+					show.rating = showEdit.rating;
+					show.rewatch = showEdit.rewatch;
+				}
+				return show;
+			})
+		});
+		console.log(this.state.shows);
+	};
+
 	render() {
 		return (
 			<Router>
@@ -64,7 +78,9 @@ export class App extends Component {
 						/>
 						<Route
 							path='/edit'
-							component={() => <EditShow shows={this.state.shows} />}
+							component={() => (
+								<EditShow shows={this.state.shows} editShow={this.editShow} />
+							)}
 						/>
 					</div>
 				</div>
