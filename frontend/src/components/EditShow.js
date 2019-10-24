@@ -80,7 +80,7 @@ export class EditShow extends Component {
 							<select
 								name='rating'
 								required
-								className='rating'
+								className='form-control'
 								value={this.props.rating}
 								onChange={this.setRating}
 							>

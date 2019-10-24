@@ -14,6 +14,10 @@ export default function Header() {
 					<Link to='/edit'>
 						<h3 style={h3Style}>Edit Shows</h3>
 					</Link>
+					<h3 style={h3Style}>|</h3>
+					<Link to='/add'>
+						<h3 style={h3Style}>Add Shows</h3>
+					</Link>
 				</div>
 			</header>
 		</div>

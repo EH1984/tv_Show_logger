@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Shows from './components/Shows';
 import EditShow from './components/EditShow';
+import AddShow from './components/AddShow';
 import Header from './components/layout/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -63,6 +64,10 @@ export class App extends Component {
 		console.log(this.state.shows);
 	};
 
+	addShow = newShow => {
+		this.setState({ shows: [...this.state.shows, newShow] });
+	};
+
 	render() {
 		return (
 			<Router>
@@ -81,6 +86,10 @@ export class App extends Component {
 							component={() => (
 								<EditShow shows={this.state.shows} editShow={this.editShow} />
 							)}
+						/>
+						<Route
+							path='/add'
+							component={() => <AddShow addShow={this.addShow} />}
 						/>
 					</div>
 				</div>
