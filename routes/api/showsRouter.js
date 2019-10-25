@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.post(
 	'/',
-	check('show', 'Please enter a show name')
+	check('title', 'Please enter a show name')
 		.not()
 		.isEmpty(),
 	check('opinion', 'Please leave a remark on the show')
@@ -32,16 +32,16 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { show, opinion, rating } = req.body;
+		const { title, opinion, rating } = req.body;
 
 		try {
-			let newShow = await Shows.findOne({ show });
+			let newShow = await Shows.findOne({ title });
 			if (newShow) {
 				return res.status(400).json({ msg: 'Show already rated!!' });
 			}
 
 			newShow = new Shows({
-				show,
+				title,
 				opinion,
 				rating
 			});

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ShowsSchema = new mongoose.Schema({
-	show: {
+	title: {
 		type: String
 	},
 	opinion: {

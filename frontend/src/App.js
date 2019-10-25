@@ -4,6 +4,8 @@ import Shows from './components/Shows';
 import EditShow from './components/EditShow';
 import AddShow from './components/AddShow';
 import Header from './components/layout/Header';
+
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import './App.css';
@@ -13,59 +15,45 @@ export class App extends Component {
 		super(props);
 
 		this.state = {
-			shows: [
-				{
-					id: 1,
-					title: 'Batman',
-					opinion: 'Class',
-					rating: 9,
-					rewatch: true
-				},
-				{
-					id: 2,
-					title: 'Batgirl',
-					opinion: 'Shit',
-					rating: 1,
-					rewatch: false
-				},
-				{
-					id: 3,
-					title: 'Stranger Things',
-					opinion: 'Pretty Good',
-					rating: 7,
-					rewatch: false
-				},
-				{
-					id: 4,
-					title: 'Friends',
-					opinion: 'OK',
-					rating: 5,
-					rewatch: false
-				}
-			]
+			shows: []
 		};
 	}
 
+	componentDidMount() {
+		axios
+			.get('http://localhost:5000')
+			.then(res => this.setState({ shows: res.data }));
+	}
+
 	delShow = id => {
-		this.setState({ shows: this.state.shows.filter(show => show.id !== id) });
+		axios
+			.delete(`http://localhost:5000/${id}`)
+			.then(res =>
+				this.setState({
+					shows: this.state.shows.filter(show => show._id !== id)
+				})
+			)
+			.catch(err => console.log(err.message));
 	};
 
 	editShow = showEdit => {
-		this.setState({
-			shows: this.state.shows.map(show => {
-				if (show.title === showEdit.title) {
-					show.opinion = showEdit.opinion;
-					show.rating = showEdit.rating;
-					show.rewatch = showEdit.rewatch;
-				}
-				return show;
+		axios.put(`http://localhost:5000/${showEdit.id}`, showEdit).then(res =>
+			this.setState({
+				shows: this.state.shows.map(show => {
+					if (show._id === res.data._id) {
+						show.opinion = res.data.opinion;
+						show.rating = res.data.rating;
+					}
+					return show;
+				})
 			})
-		});
-		console.log(this.state.shows);
+		);
 	};
 
 	addShow = newShow => {
-		this.setState({ shows: [...this.state.shows, newShow] });
+		axios
+			.post('http://localhost:5000', newShow)
+			.then(res => this.setState({ shows: [...this.state.shows, res.data] }));
 	};
 
 	render() {

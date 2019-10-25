@@ -35,6 +35,7 @@ export class AddShow extends Component {
 			opinion: '',
 			rating: ''
 		});
+		window.location = '/';
 	};
 
 	render() {

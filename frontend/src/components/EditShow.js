@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export class EditShow extends Component {
 	state = {
+		id: '',
 		title: '',
 		opinion: '',
 		rating: ''
@@ -11,12 +12,19 @@ export class EditShow extends Component {
 
 	componentDidMount() {
 		if (this.props.shows.length > 0) {
-			this.setState({ title: this.props.shows[0].title, rating: 1 });
+			this.setState({
+				id: this.props.shows[0]._id,
+				title: this.props.shows[0].title,
+				rating: 1
+			});
 		}
 	}
 
 	setShow = e => {
-		this.setState({ [e.target.name]: e.target.value });
+		const show_id = this.props.shows.filter(
+			show => show.title === e.target.value
+		)[0]._id;
+		this.setState({ id: show_id, [e.target.name]: e.target.value });
 	};
 
 	setOpinon = e => {
@@ -30,10 +38,9 @@ export class EditShow extends Component {
 	onSubmit = e => {
 		e.preventDefault();
 		const showEdit = {
-			title: this.state.title,
+			id: this.state.id,
 			opinion: this.state.opinion ? this.state.opinion : 'No review written!',
-			rating: this.state.rating,
-			rewatch: false
+			rating: this.state.rating
 		};
 		this.props.editShow(showEdit);
 		this.setState({ title: this.props.shows[0].title, opinion: '', rating: 1 });
@@ -57,7 +64,7 @@ export class EditShow extends Component {
 						>
 							{this.props.shows.map(show => {
 								return (
-									<option key={show.id} value={show.title}>
+									<option key={show._id} value={show.title}>
 										{show.title}
 									</option>
 								);

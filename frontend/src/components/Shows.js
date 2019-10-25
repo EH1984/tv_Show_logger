@@ -18,14 +18,14 @@ export class Shows extends Component {
 					<tbody>
 						{this.props.shows.map(show => {
 							return (
-								<tr key={show.id}>
+								<tr key={show._id}>
 									<td>{show.title}</td>
 									<td>{show.opinion}</td>
 									<td>{show.rating}</td>
 									<td>
 										<button
 											className='btn btn-danger'
-											onClick={this.props.delShow.bind(this, show.id)}
+											onClick={this.props.delShow.bind(this, show._id)}
 										>
 											x
 										</button>
@@ -35,10 +35,6 @@ export class Shows extends Component {
 						})}
 					</tbody>
 				</table>
-
-				{/* {this.props.shows.map(show => (
-					<ShowItem key={show.id} show={show} />
-				))} */}
 			</div>
 		);
 	}
